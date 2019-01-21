@@ -68,7 +68,7 @@ export default {
           commit('setAvator', data.avator)
           commit('setUserName', data.user_name)
           commit('setUserId', data.user_id)
-          commit('setAccess', data.access)
+          commit('setAccess', data.page)
           resolve(data)
         }).catch(err => {
           reject(err)

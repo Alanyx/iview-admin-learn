@@ -4,7 +4,8 @@
       <Row v-for="i in (customIconList.length / 3)" :key="`custom-icon-row-${i}`">
         <i-col span="8" v-for="item in customIconList.slice((i - 1) * 3, i * 3)" :key="`custom-icon-${item}`">
           <Card style="margin: 0 5px 5px; text-align: center;">
-            <icons :size="30" :type="item"/>
+            <!--Icons组件的属性-->
+            <icons :size="30" :type="item" color="#5c6b77"/>
             <p class="icon-code">&lt;Icons :size="30" type="{{ item }}"&gt;</p>
             <p>&lt;CommonIcon :size="30" type="_{{ item }}"&gt;</p>
           </Card>
@@ -13,6 +14,10 @@
       <Row>
         <i-col>
           <Card style="margin: 0 5px 5px; text-align: center;">
+            <!--这个组件支持iView内置图标和自定义图标，
+            如果是使用iView内置的图标，则使用方法和使用iView的Icon组件一样；
+            如果是自定义图标，则需要在名字前加上下划线_。
+            该组件实际是对iView内置Icon组件和自定义图标组件Icons的结合，而用来区分这两者的就是type属性开头是否带有下划线。-->
             <common-icon :size="30" type="ionic"/>
             <p class="icon-code">iView内置图标</p>
             <p>&lt;CommonIcon :size="30" type="ionic"&gt;</p>

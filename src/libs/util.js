@@ -20,8 +20,8 @@ export const hasChild = (item) => {
 }
 
 const showThisMenuEle = (item, access) => {
-  if (item.meta && item.meta.access && item.meta.access.length) {
-    if (hasOneOf(item.meta.access, access)) return true
+  if (item.meta && item.meta.page && item.meta.page.length) {
+    if (hasOneOf(item.meta.page, access)) return true
     else return false
   } else return true
 }
@@ -123,7 +123,7 @@ export const getNewTagList = (list, newRoute) => {
  * @param {*} route 路由列表
  */
 const hasAccess = (access, route) => {
-  if (route.meta && route.meta.access) return hasOneOf(access, route.meta.access)
+  if (route.meta && route.meta.page) return hasOneOf(access, route.meta.page)
   else return true
 }
 

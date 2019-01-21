@@ -53,6 +53,8 @@
 import TablesEdit from './edit.vue'
 import handleBtns from './handle-btns'
 import './index.less'
+
+/// todo 为什么组件在components和view目录下开发相同名称的vue组件，这两者有什么区别和联系？
 export default {
   name: 'Tables',
   props: {

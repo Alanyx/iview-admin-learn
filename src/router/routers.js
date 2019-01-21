@@ -2,22 +2,30 @@ import Main from '@/view/main'
 import parentView from '@/components/parent-view'
 
 /**
+ * './src/router/routers.js' 文件中定义页面路由信息。
+ */
+
+/**
+ * 1.路由可配项
  * iview-admin中meta除了原生参数外可配置的参数:
  * meta: {
  *  hideInMenu: (false) 设为true后在左侧菜单不会显示该页面选项
+ *  showAlways: (default: false) 设为true后如果该路由只有一个子路由，在菜单中也会显示该父级菜单
  *  notCache: (false) 设为true后页面不会缓存
  *  access: (null) 可访问该页面的权限数组，当前路由设置的权限会影响子路由
  *  icon: (-) 该页面在左侧菜单、面包屑和标签导航处显示的图标，如果是自定义图标，需要在图标名称前加下划线'_'
+ *  href: 'https://xxx' (default: null) 用于跳转到外部连接
  * }
  */
-
 export default [
+  //3.在独立页面展示的页面(如登录页和错误页)
+  //如登录页、错误页这种独立的页面，无需使用Main组件，则直接定义在 routers.js 中export default []的数组中，如登录页的定义如下
   {
-    path: '/login',
-    name: 'login',
+    path: '/login', // 必须项
+    name: 'login',  // 必须项，后面缓存页面需要用到，且这个name是唯一的
     meta: {
       title: 'Login - 登录',
-      hideInMenu: true
+      hideInMenu: true  // 是否在左侧菜单中隐藏，默认为false
     },
     component: () => import('@/view/login/login.vue')
   },
@@ -238,14 +246,16 @@ export default [
       }
     ]
   },
+  //4.在Main组件展示区域中展示的页面
+  //页面作为多Tab页展示，在Main组件的视图区域显示，则需要在用到子路由，定义如下：
   {
     path: '/multilevel',
-    name: 'multilevel',
+    name: 'multilevel', // 一级目录
     meta: {
       icon: 'md-menu',
       title: '多级菜单'
     },
-    component: Main,
+    component: Main,  // 一级目录必须使用Main组件作为component
     children: [
       {
         path: 'level_2_1',
@@ -258,14 +268,19 @@ export default [
       },
       {
         path: 'level_2_2',
-        name: 'level_2_2',
+        name: 'level_2_2', // 一级目录下的二级页面
         meta: {
-          access: ['super_admin'],
+          /**
+           * 该页面只有权限值为super_admin的用户才能访问
+           * 如果这级路由有子路由，则子路由也只有super_admin才能访问
+           * 如果不设置此字段，则所有用户均可访问
+           */
+          access: ['super_admin'],  // 权限控制<Array>，包含可访问该页面的用户权限
           icon: 'md-funnel',
           showAlways: true,
           title: '二级-2'
         },
-        component: parentView,
+        component: parentView,  // 如果该路由不是页面，而是二级即更多级目录，需要用parentView组件
         children: [
           {
             path: 'level_2_2_1',
@@ -274,7 +289,7 @@ export default [
               icon: 'md-funnel',
               title: '三级'
             },
-            component: () => import('@/view/multilevel/level-2-2/level-3-1.vue')
+            component: () => import('@/view/multilevel/level-2-2/level-3-1.vue')  // 这引入的是页面单文件
           }
         ]
       },
@@ -342,5 +357,15 @@ export default [
       hideInMenu: true
     },
     component: () => import('@/view/error-page/404.vue')
+  },
+  //2.跳转到其他网页，在新窗口打开
+  {
+    path: '/test',
+    name: 'testNames',
+    meta: {
+      href: 'http://www.baidu.com',
+      icon: 'md-flower',
+      title: '测试的页面'
+    }
   }
 ]

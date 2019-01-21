@@ -42,8 +42,8 @@ export default {
         recover: true
       },
       buttonOptions: {
-        trigger: '.draggable-btn',
-        body: '.draggable-btn'
+        trigger: '.draggable-btn', // 设置能触发拖动的元素的CSS选择器
+        body: '.draggable-btn' // 设置需要移动的元素的CSS选择器
       },
       statu: 1
     }

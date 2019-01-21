@@ -12,6 +12,9 @@ import './index.less'
 export default {
   name: 'CountTo',
   props: {
+    /**
+     * @description 动画未开始时显示的数值
+     */
     init: {
       type: Number,
       default: 0

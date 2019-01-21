@@ -1,5 +1,7 @@
 <template>
+  <!--Layout:布局容器，其下可嵌套 HeaderSiderContentFooter或 Layout 本身，可以放在任何父容器中-->
   <Layout style="height: 100%" class="main">
+    <!--Sider：侧边栏，自带默认样式及基本功能，其下可嵌套任何元素，只能放在 Layout 中。-->
     <Sider hide-trigger collapsible :width="256" :collapsed-width="64" v-model="collapsed" class="left-sider" :style="{overflow: 'hidden'}">
       <side-menu accordion ref="sideMenu" :active-name="$route.name" :collapsed="collapsed" @on-select="turnToPage" :menu-list="menuList">
         <!-- 需要放在菜单上面的内容，如Logo，写在side-menu标签内部，如下 -->
@@ -17,6 +19,7 @@
           <fullscreen v-model="isFullscreen" style="margin-right: 10px;"/>
         </header-bar>
       </Header>
+      <!--Content：内容部分，自带默认样式，其下可嵌套任何元素，只能放在 Layout 中。-->
       <Content class="main-content-con">
         <Layout class="main-layout-con">
           <div class="tag-nav-wrapper">
@@ -29,6 +32,8 @@
           </Content>
         </Layout>
       </Content>
+      <!--Footer：底部布局，自带默认样式，其下可嵌套任何元素，只能放在 Layout 中-->
+      <!--<Footer>testFooter</Footer>-->
     </Layout>
   </Layout>
 </template>
@@ -44,9 +49,11 @@ import { getNewTagList, getNextRoute, routeEqual } from '@/libs/util'
 import minLogo from '@/assets/images/logo-min.jpg'
 import maxLogo from '@/assets/images/logo.jpg'
 import './main.less'
+import Footer from '../../../node_modules/iview/src/components/layout/footer'
 export default {
   name: 'Main',
   components: {
+    Footer,
     SideMenu,
     HeaderBar,
     Language,
